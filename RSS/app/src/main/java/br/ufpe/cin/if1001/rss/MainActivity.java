@@ -30,7 +30,7 @@ public class MainActivity extends Activity {
 
     //use ListView ao invés de TextView - deixe o atributo com o mesmo nome
     private ListView conteudoRSS;
-    private List<String> parsedResponse;
+    private List<ItemRSS> parsedResponse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,10 +71,9 @@ public class MainActivity extends Activity {
             //ajuste para usar uma ListView
             //o layout XML a ser utilizado esta em res/layout/itemlista.xml
             try {
-                parsedResponse = ParserRSS.parserSimples(s);
-                conteudoRSS.setAdapter(new ArrayAdapter<>(getApplicationContext(),
-                        android.R.layout.simple_list_item_1,
-                        parsedResponse));
+                parsedResponse = ParserRSS.parse(s);
+                AdapterRSS adapterRSS = new AdapterRSS(getApplicationContext(), parsedResponse);
+                conteudoRSS.setAdapter(adapterRSS);
             } catch (XmlPullParserException e) {
                 e.printStackTrace();
             } catch (IOException e) {
