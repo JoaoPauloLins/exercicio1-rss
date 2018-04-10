@@ -1,8 +1,12 @@
 package br.ufpe.cin.if1001.rss;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -72,8 +76,17 @@ public class MainActivity extends Activity {
             //o layout XML a ser utilizado esta em res/layout/itemlista.xml
             try {
                 parsedResponse = ParserRSS.parse(s);
-                AdapterRSS adapterRSS = new AdapterRSS(getApplicationContext(), parsedResponse);
+                final AdapterRSS adapterRSS = new AdapterRSS(getApplicationContext(), parsedResponse);
                 conteudoRSS.setAdapter(adapterRSS);
+                conteudoRSS.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int position, long arg) {
+                        String url = adapterRSS.getLink(position);
+                        Intent intent = new Intent(Intent.ACTION_VIEW);
+                        intent.setData(Uri.parse(url));
+                        startActivity(intent);
+                    }
+                });
             } catch (XmlPullParserException e) {
                 e.printStackTrace();
             } catch (IOException e) {

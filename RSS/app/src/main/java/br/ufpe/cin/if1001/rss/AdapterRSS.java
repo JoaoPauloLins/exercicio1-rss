@@ -1,6 +1,8 @@
 package br.ufpe.cin.if1001.rss;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +20,7 @@ public class AdapterRSS extends ArrayAdapter<ItemRSS> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
 
-        ItemRSS itemRSS = getItem(position);
+        final ItemRSS itemRSS = getItem(position);
 
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.itemlista, parent, false);
@@ -31,5 +33,11 @@ public class AdapterRSS extends ArrayAdapter<ItemRSS> {
         itemData.setText(itemRSS.getPubDate());
 
         return convertView;
+    }
+
+    public String getLink(int position){
+        final ItemRSS itemRSS = getItem(position);
+
+        return itemRSS.getLink();
     }
 }
