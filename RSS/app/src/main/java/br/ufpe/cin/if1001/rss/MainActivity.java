@@ -1,7 +1,9 @@
 package br.ufpe.cin.if1001.rss;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -23,8 +25,11 @@ import java.util.List;
 
 public class MainActivity extends Activity {
 
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
+
     //ao fazer envio da resolucao, use este link no seu codigo!
-    private final String RSS_FEED = "http://leopoldomt.com/if1001/g1brasil.xml";
+    // private final String RSS_FEED = "http://leopoldomt.com/if1001/g1brasil.xml";
 
     //OUTROS LINKS PARA TESTAR...
     //http://rss.cnn.com/rss/edition.rss
@@ -43,12 +48,21 @@ public class MainActivity extends Activity {
         //use ListView ao invés de TextView - deixe o ID no layout XML com o mesmo nome conteudoRSS
         //isso vai exigir o processamento do XML baixado da internet usando o ParserRSS
         conteudoRSS = (ListView) findViewById(R.id.conteudoRSS);
+
+        sharedPreferences = getSharedPreferences(getString(R.string.rss_feed), Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+        if (getString(R.string.rss_feed_link).equals("default")){
+            editor.putString(getString(R.string.rss_feed), getString(R.string.rss_feed_default));
+        } else {
+            editor.putString(getString(R.string.rss_feed), getString(R.string.rss_feed_link));
+        }
+        editor.apply();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        new CarregaRSStask().execute(RSS_FEED);
+        new CarregaRSStask().execute(sharedPreferences.getString(getString(R.string.rss_feed),getString(R.string.rss_feed_default)));
     }
 
     private class CarregaRSStask extends AsyncTask<String, Void, String> {
