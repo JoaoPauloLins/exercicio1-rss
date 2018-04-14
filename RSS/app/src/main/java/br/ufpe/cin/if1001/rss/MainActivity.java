@@ -1,17 +1,16 @@
 package br.ufpe.cin.if1001.rss;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import org.xmlpull.v1.XmlPullParserException;
@@ -23,21 +22,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
 
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity {
 
     private SharedPreferences sharedPreferences;
-    private SharedPreferences.Editor editor;
-
-    //ao fazer envio da resolucao, use este link no seu codigo!
-    // private final String RSS_FEED = "http://leopoldomt.com/if1001/g1brasil.xml";
-
-    //OUTROS LINKS PARA TESTAR...
-    //http://rss.cnn.com/rss/edition.rss
-    //http://pox.globo.com/rss/g1/brasil/
-    //http://pox.globo.com/rss/g1/ciencia-e-saude/
-    //http://pox.globo.com/rss/g1/tecnologia/
-
-    //use ListView ao invés de TextView - deixe o atributo com o mesmo nome
     private ListView conteudoRSS;
     private List<ItemRSS> parsedResponse;
 
@@ -45,24 +32,21 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //use ListView ao invés de TextView - deixe o ID no layout XML com o mesmo nome conteudoRSS
-        //isso vai exigir o processamento do XML baixado da internet usando o ParserRSS
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.rss_toolbar);
+        setSupportActionBar(toolbar);
+
         conteudoRSS = (ListView) findViewById(R.id.conteudoRSS);
 
-        sharedPreferences = getSharedPreferences(getString(R.string.rss_feed), Context.MODE_PRIVATE);
-        editor = sharedPreferences.edit();
-        if (getString(R.string.rss_feed_link).equals("default")){
-            editor.putString(getString(R.string.rss_feed), getString(R.string.rss_feed_default));
-        } else {
-            editor.putString(getString(R.string.rss_feed), getString(R.string.rss_feed_link));
-        }
-        editor.apply();
+        PreferenceManager.setDefaultValues(this, R.xml.preferencias, false);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        new CarregaRSStask().execute(sharedPreferences.getString(getString(R.string.rss_feed),getString(R.string.rss_feed_default)));
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String url = sharedPreferences.getString(PreferenciasActivity.KEY_PREF_RSS_FEED, "");
+        new CarregaRSStask().execute(url);
     }
 
     private class CarregaRSStask extends AsyncTask<String, Void, String> {
@@ -86,8 +70,6 @@ public class MainActivity extends Activity {
         protected void onPostExecute(String s) {
             Toast.makeText(getApplicationContext(), "terminando...", Toast.LENGTH_SHORT).show();
 
-            //ajuste para usar uma ListView
-            //o layout XML a ser utilizado esta em res/layout/itemlista.xml
             try {
                 parsedResponse = ParserRSS.parse(s);
                 final AdapterRSS adapterRSS = new AdapterRSS(getApplicationContext(), parsedResponse);
@@ -109,7 +91,6 @@ public class MainActivity extends Activity {
         }
     }
 
-    //Opcional - pesquise outros meios de obter arquivos da internet
     private String getRssFeed(String feed) throws IOException {
         InputStream in = null;
         String rssFeed = "";
@@ -130,5 +111,10 @@ public class MainActivity extends Activity {
             }
         }
         return rssFeed;
+    }
+
+    public void changeFeed(View view){
+        Intent intent = new Intent(this,PreferenciasActivity.class);
+        startActivity(intent);
     }
 }

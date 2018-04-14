@@ -3,4 +3,5 @@
     <string name="rss_feed">rss_feed_key</string>
     <string name="rss_feed_link">default</string>
     <string name="rss_feed_default">http://leopoldomt.com/if1001/g1brasil.xml</string>
+    <string name="button_toolbar">Alterar Feed</string>
 </resources>

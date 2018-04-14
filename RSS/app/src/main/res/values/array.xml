@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="feed_links">
+        <item>http://leopoldomt.com/if1001/g1brasil.xml</item>
+        <item>http://rss.cnn.com/rss/edition.rss</item>
+        <item>http://pox.globo.com/rss/g1/brasil/</item>
+        <item>http://pox.globo.com/rss/g1/ciencia-e-saude/</item>
+        <item>http://pox.globo.com/rss/g1/tecnologia/</item>
+    </string-array>
+
+    <string-array name="feeds">
+        <item>g1brasil</item>
+        <item>cnn</item>
+        <item>rss g1brasil</item>
+        <item>ciencia e saude</item>
+        <item>tecnologia</item>
+    </string-array>
+</resources>

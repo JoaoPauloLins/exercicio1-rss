@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <ListPreference
+        android:key="feed_list"
+        android:title="@string/button_toolbar"
+        android:summary="Selecione o tipo de rss feed que você gostaria de ver"
+        android:entries="@array/feeds"
+        android:entryValues="@array/feed_links"
+        android:defaultValue="@string/rss_feed_default"/>
+
 </PreferenceScreen>
