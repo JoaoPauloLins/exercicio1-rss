@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="br.ufpe.cin.if1001.rss.MainActivity">
+    tools:context="br.ufpe.cin.if1001.rss.ui.MainActivity">
 
     <include layout="@layout/app_bar"
         android:id="@+id/rss_toolbar"/>

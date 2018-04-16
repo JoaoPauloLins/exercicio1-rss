@@ -1,8 +1,6 @@
-package br.ufpe.cin.if1001.rss;
+package br.ufpe.cin.if1001.rss.util;
 
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +8,9 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import java.util.List;
+
+import br.ufpe.cin.if1001.rss.R;
+import br.ufpe.cin.if1001.rss.domain.ItemRSS;
 
 public class AdapterRSS extends ArrayAdapter<ItemRSS> {
 

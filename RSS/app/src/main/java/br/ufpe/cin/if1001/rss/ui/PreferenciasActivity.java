@@ -1,10 +1,12 @@
-package br.ufpe.cin.if1001.rss;
+package br.ufpe.cin.if1001.rss.ui;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
+
+import br.ufpe.cin.if1001.rss.R;
 
 public class PreferenciasActivity extends PreferenceActivity
         implements SharedPreferences.OnSharedPreferenceChangeListener {
