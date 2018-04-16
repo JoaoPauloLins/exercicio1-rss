@@ -7,11 +7,13 @@
         android:id="@+id/item_titulo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:textColor="#000000"/>
 
     <TextView
         android:id="@+id/item_data"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="12sp" />
+        android:textSize="12sp"
+        android:textColor="#000000"/>
 </LinearLayout>
