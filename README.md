@@ -47,8 +47,8 @@ Veja que existem dois objetos `AsyncTask` agora. Um é responsável por carregar
 | 7 | **sim** |
 | 8 | **sim** |
 | 9 | **sim** |
-| 10 | **não** |
-| 11 | **não** |
+| 10 | **sim** |
+| 11 | **sim** |
 | 12 | **não** |
 | 13 | **não** |
 | 14 | **não** |
